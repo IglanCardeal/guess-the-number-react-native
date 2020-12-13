@@ -9,6 +9,7 @@ interface Props {
     width: number | string;
     color: string;
     fontSize: number;
+    [propName: string]: any;
   };
 }
 

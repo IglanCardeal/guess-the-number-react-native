@@ -12,11 +12,14 @@ import AppButton from '../components/AppButton';
 import Card from '../components/Card';
 import TextInputField from '../components/TextInput';
 import NumberContainer from '../components/NumberContainer';
+import ButtonsContainer from '../components/ButtonsContainer';
 
-import Colors from '../constants/colors';
-import FontSize from '../constants/fontSize';
+import Colors from '../styles/colors';
+import FontSize from '../styles/fontSize';
 
-interface Props {}
+interface Props {
+  startGame: (value: number) => void;
+}
 
 const StartGameScreen: React.FC<Props> = (props) => {
   const [inputNumber, setInputNumber] = useState<string>('');
@@ -63,7 +66,12 @@ const StartGameScreen: React.FC<Props> = (props) => {
     outputText = (
       <Card style={styles.outputContainer}>
         <Text style={styles.outputContainerTitle}>Chosen number:</Text>
-        <NumberContainer numberValue={enteredValue}/>
+        <NumberContainer numberValue={enteredValue} />
+        <AppButton
+          title="Start Game"
+          onPress={() => props.startGame(enteredValue)}
+          style={styles.startGameButton}
+        />
       </Card>
     );
   }
@@ -83,7 +91,7 @@ const StartGameScreen: React.FC<Props> = (props) => {
             value={inputNumber}
             onChangeText={inputFieldHandler}
           />
-          <View style={styles.buttonContainer}>
+          <ButtonsContainer>
             <AppButton
               style={styles.resetButton}
               onPress={resetInputHandler}
@@ -94,7 +102,7 @@ const StartGameScreen: React.FC<Props> = (props) => {
               onPress={confirmInputHandler}
               title="Confirm"
             />
-          </View>
+          </ButtonsContainer>
         </Card>
 
         {outputText}
@@ -127,22 +135,22 @@ const styles = StyleSheet.create({
     fontSize: FontSize.general,
     width: '30%',
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    paddingHorizontal: 15,
-  },
+  // buttonContainer: {
+  //   flexDirection: 'row',
+  //   width: '100%',
+  //   justifyContent: 'space-between',
+  //   paddingHorizontal: 15,
+  // },
   resetButton: {
-    backgroundColor: Colors.buttons.primary_color,
+    backgroundColor: Colors.buttons.secondary_color,
     width: 100,
-    color: '#fff',
+    color: Colors.textColor.primary_color,
     fontSize: FontSize.buttons,
   },
   confirmButton: {
-    backgroundColor: Colors.buttons.secondary_color,
+    backgroundColor: Colors.buttons.primary_color,
     width: 150,
-    color: '#fff',
+    color: Colors.textColor.primary_color,
     fontSize: FontSize.buttons,
   },
   outputContainer: {
@@ -150,12 +158,20 @@ const styles = StyleSheet.create({
     maxWidth: '90%',
     alignItems: 'center',
     marginTop: 20,
-    backgroundColor: '#da387d',
+    backgroundColor: '#313638',
     paddingVertical: 20,
   },
   outputContainerTitle: {
     fontSize: FontSize.general,
-    color: '#fff',
+    color: Colors.textColor.primary_color,
+  },
+  startGameButton: {
+    backgroundColor: Colors.buttons.primary_color,
+    width: 150,
+    color: Colors.textColor.primary_color,
+    fontSize: FontSize.buttons,
+    marginVertical: 10,
+    marginTop: 20,
   },
 });
 

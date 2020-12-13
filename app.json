@@ -4,9 +4,9 @@
     "slug": "guess-number-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/guess.png",
+    "icon": "./src/assets/guess.png",
     "splash": {
-      "image": "./assets/guess.png",
+      "image": "./src/assets/guess.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,12 +21,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/guess.png",
+        "foregroundImage": "./src/assets/guess.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/guess.png"
+      "favicon": "./src/assets/guess.png"
     },
     "androidNavigationBar": {
       "visible": "sticky-immersive"

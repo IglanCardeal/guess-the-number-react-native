@@ -1,7 +1,7 @@
 export default {
-  h1: 22,
-  h2: 20,
-  h3: 18,
+  h1: 24,
+  h2: 22,
+  h3: 20,
   buttons: 16,
   general: 16,
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-import Colors from '../constants/colors';
-import FontSize from '../constants/fontSize';
+import Colors from '../styles/colors';
+import FontSize from '../styles/fontSize';
 
 interface Props {
   title: string;
