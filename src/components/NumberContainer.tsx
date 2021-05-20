@@ -10,21 +10,22 @@ interface Props {
   textColor?: string;
 }
 
-const NumberContainer: React.FC<Props> = (props) => {
+const NumberContainer: React.FC<Props> = props => {
+  const { numberValue, borderColor, textColor } = props;
   return (
     <View
       style={{
         ...styles.container,
-        borderColor: props.borderColor || Colors.textColor.primary_color,
+        borderColor: borderColor || Colors.textColor.primary_color
       }}
     >
       <Text
         style={{
           ...styles.text,
-          color: props.textColor || Colors.textColor.primary_color,
+          color: textColor || Colors.textColor.primary_color
         }}
       >
-        {props.numberValue}
+        {numberValue}
       </Text>
     </View>
   );
@@ -36,12 +37,12 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 5,
     borderRadius: 10,
-    borderColor: Colors.textColor.primary_color,
+    borderColor: Colors.textColor.primary_color
   },
   text: {
     fontSize: FontSize.general,
-    color: Colors.textColor.primary_color,
-  },
+    color: Colors.textColor.primary_color
+  }
 });
 
 export default NumberContainer;

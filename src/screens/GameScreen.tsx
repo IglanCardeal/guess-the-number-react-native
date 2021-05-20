@@ -17,9 +17,11 @@ interface Props {
   gameOver: (numberOfRounds: number) => void;
 }
 
-const GameScreen: React.FC<Props> = (props) => {
+const GameScreen: React.FC<Props> = props => {
+  const { userChoice } = props;
+
   const [currentGuess, setCurrentGuess] = useState<number>(
-    generateRandomBetween(1, 100, props.userChoice),
+    generateRandomBetween(1, 100, userChoice)
   );
 
   const currentLow = useRef(1);
@@ -34,18 +36,18 @@ const GameScreen: React.FC<Props> = (props) => {
 
   const nextGuessHandler = (direction: string) => {
     const lowerIsLie = Boolean(
-      direction === 'lower' && currentGuess < props.userChoice,
+      direction === 'lower' && currentGuess < props.userChoice
     );
     const greaterIsLie = Boolean(
-      direction === 'greater' && currentGuess > props.userChoice,
+      direction === 'greater' && currentGuess > props.userChoice
     );
 
     if (lowerIsLie || greaterIsLie) {
       return Alert.alert("Don't lie!", 'You know that this is wrong...', [
         {
           text: 'Sorry',
-          style: 'cancel',
-        },
+          style: 'cancel'
+        }
       ]);
     }
 
@@ -60,18 +62,18 @@ const GameScreen: React.FC<Props> = (props) => {
     const nextNumber = generateRandomBetween(
       currentLow.current,
       currentHigh.current,
-      currentGuess,
+      currentGuess
     );
 
     setCurrentGuess(nextNumber);
 
-    numberOfRounds.current = numberOfRounds.current + 1;
+    numberOfRounds.current += 1;
   };
 
   return (
     <View style={styles.screen}>
       <Card style={styles.result}>
-        <Text style={styles.title}>Opponent's Guess</Text>
+        <Text style={styles.title}>Opponent&apos;s Guess</Text>
         <NumberContainer
           numberValue={currentGuess}
           textColor={`${Colors.textColor.secondary_color}`}
@@ -101,40 +103,42 @@ const GameScreen: React.FC<Props> = (props) => {
   );
 };
 
+const bgColor = '#ffcbbe';
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 10,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   result: {
     width: 400,
     maxWidth: '90%',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   title: {
     color: Colors.textColor.secondary_color,
-    fontSize: FontSize.general,
+    fontSize: FontSize.general
   },
   lowerButton: {
     backgroundColor: Colors.buttons.secondary_color,
     width: 100,
     color: Colors.textColor.primary_color,
-    fontSize: FontSize.general,
+    fontSize: FontSize.general
   },
   greaterButton: {
     backgroundColor: Colors.buttons.primary_color,
     width: 100,
     color: Colors.textColor.primary_color,
-    fontSize: FontSize.general,
+    fontSize: FontSize.general
   },
   restarButton: {
-    backgroundColor: '#ffcbbe',
+    backgroundColor: bgColor,
     width: 200,
     color: Colors.textColor.secondary_color,
     fontSize: FontSize.general,
-    marginTop: 20,
-  },
+    marginTop: 20
+  }
 });
 
 export default GameScreen;

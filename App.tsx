@@ -52,17 +52,19 @@ export default function App() {
 
   return (
     <View style={styles.screen}>
-      <StatusBar style="light" />
+      <StatusBar style="auto" />
       <Header title="Guess a Number Game" />
       {screen}
     </View>
   );
 }
 
+const whiteBg = '#fff';
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#fff',
-    flexDirection: 'column',
-  },
+    backgroundColor: whiteBg,
+    flexDirection: 'column'
+  }
 });

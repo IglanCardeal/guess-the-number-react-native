@@ -8,15 +8,15 @@ interface Props {
   title: string;
 }
 
-const Header: React.FC<Props> = (props) => {
-  return (
-    <View style={styles.header}>
-      <Image source={require('../assets/guess.png')} style={styles.image} />
-      <Text style={styles.headerTitle}>{props.title}</Text>
-      <Image source={require('../assets/guess.png')} style={styles.image} />
-    </View>
-  );
-};
+const img = require('../assets/guess.png');
+
+const Header: React.FC<Props> = ({ title }) => (
+  <View style={styles.header}>
+    <Image source={img} style={styles.image} />
+    <Text style={styles.headerTitle}>{title}</Text>
+    <Image source={img} style={styles.image} />
+  </View>
+);
 
 const styles = StyleSheet.create({
   header: {
@@ -26,17 +26,17 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.header.background_color,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   image: {
     height: 32,
     width: 32,
-    marginHorizontal: 20,
+    marginHorizontal: 20
   },
   headerTitle: {
     color: Colors.header.text_color,
-    fontSize: FontSize.h1,
-  },
+    fontSize: FontSize.h1
+  }
 });
 
 export default Header;

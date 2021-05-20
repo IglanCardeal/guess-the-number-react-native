@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-color-literals */
 import React, { useState } from 'react';
 import {
   View,
@@ -5,7 +6,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
+  Alert
 } from 'react-native';
 
 import AppButton from '../components/AppButton';
@@ -21,7 +22,7 @@ interface Props {
   startGame: (value: number) => void;
 }
 
-const StartGameScreen: React.FC<Props> = (props) => {
+const StartGameScreen: React.FC<Props> = props => {
   const [inputNumber, setInputNumber] = useState<string>('');
   const [confirmed, setConfirmed] = useState<boolean>(false);
   const [enteredValue, setEnteredValue] = useState<number>(0);
@@ -38,12 +39,14 @@ const StartGameScreen: React.FC<Props> = (props) => {
   };
 
   const confirmInputHandler = () => {
-    const number = parseInt(inputNumber);
-    const notValidNumber = Boolean(isNaN(number) || number <= 0 || number > 99);
+    const number = parseInt(inputNumber, 10);
+    const notValidNumber = Boolean(
+      Number.isNaN(number) || number <= 0 || number > 99
+    );
 
     if (notValidNumber) {
       Alert.alert('Invalid number', 'Enter a number between 1 and 99.', [
-        { text: 'OK', style: 'destructive', onPress: resetInputHandler },
+        { text: 'OK', style: 'destructive', onPress: resetInputHandler }
       ]);
 
       return;
@@ -111,29 +114,33 @@ const StartGameScreen: React.FC<Props> = (props) => {
   );
 };
 
+const lightgreyColor = 'lightgrey';
+
+const outputContainerBgColor = '#313638';
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 10,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   title: {
     fontSize: FontSize.h2,
-    marginVertical: 20,
+    marginVertical: 20
   },
   inputContainer: {
     width: 400,
     maxWidth: '90%',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   inputContainerText: {
-    fontSize: FontSize.general,
+    fontSize: FontSize.general
   },
   inputField: {
-    borderColor: 'lightgrey',
+    borderColor: lightgreyColor,
     borderBottomWidth: 1,
     fontSize: FontSize.general,
-    width: '30%',
+    width: '30%'
   },
   // buttonContainer: {
   //   flexDirection: 'row',
@@ -145,25 +152,25 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.buttons.secondary_color,
     width: 100,
     color: Colors.textColor.primary_color,
-    fontSize: FontSize.buttons,
+    fontSize: FontSize.buttons
   },
   confirmButton: {
     backgroundColor: Colors.buttons.primary_color,
     width: 150,
     color: Colors.textColor.primary_color,
-    fontSize: FontSize.buttons,
+    fontSize: FontSize.buttons
   },
   outputContainer: {
     width: 400,
     maxWidth: '90%',
     alignItems: 'center',
     marginTop: 20,
-    backgroundColor: '#313638',
-    paddingVertical: 20,
+    backgroundColor: outputContainerBgColor,
+    paddingVertical: 20
   },
   outputContainerTitle: {
     fontSize: FontSize.general,
-    color: Colors.textColor.primary_color,
+    color: Colors.textColor.primary_color
   },
   startGameButton: {
     backgroundColor: Colors.buttons.primary_color,
@@ -171,8 +178,8 @@ const styles = StyleSheet.create({
     color: Colors.textColor.primary_color,
     fontSize: FontSize.buttons,
     marginVertical: 10,
-    marginTop: 20,
-  },
+    marginTop: 20
+  }
 });
 
 export default StartGameScreen;
