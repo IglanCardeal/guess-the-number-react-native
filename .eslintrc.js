@@ -34,6 +34,8 @@ module.exports = {
     'react-native/no-inline-styles': 2,
     'react-native/no-color-literals': 2,
     'react-native/no-raw-text': 2,
+    'no-param-reassign': 0,
+    'import/prefer-default-export': 0
     // 'react-native/no-single-element-style-arrays': 2
   }
 };
