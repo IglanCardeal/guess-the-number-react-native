@@ -1,33 +1,36 @@
-import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 
-import Header from './src/components/Header';
-import StartGameScreen from './src/screens/StartGameScreen';
-import GameScreen from './src/screens/GameScreen';
-import GameOverScreen from './src/screens/GameOverScreen';
+import Header from './src/components/Header'
+import StartGameScreen from './src/screens/StartGameScreen'
+import GameScreen from './src/screens/GameScreen'
+import GameOverScreen from './src/screens/GameOverScreen'
 
-export default function App() {
-  const [userNumber, setUserNumber] = useState<number>(0);
-  const [gameIsOver, setGameIsOver] = useState<boolean>(false);
-  const [guessRounds, setGuessRounds] = useState(0);
+export default function App () {
+  const [userNumber, setUserNumber] = useState<number>(0)
+  const [gameIsOver, setGameIsOver] = useState<boolean>(false)
+  const [guessRounds, setGuessRounds] = useState(0)
 
   const startGameHandler = (selectedNumber: number) => {
-    setUserNumber(selectedNumber);
-    setGuessRounds(0);
-  };
+    setUserNumber(selectedNumber)
+    setGuessRounds(0)
+  }
 
   const restartGameHandler = () => {
-    setUserNumber(0);
-    setGuessRounds(0);
-    setGameIsOver(false);
-  };
+    setUserNumber(0)
+    setGuessRounds(0)
+    setGameIsOver(false)
+  }
 
+  // funcao que vai ser usadao pelo GameScreen para quando
+  // houver o evento de gameover
   const gameOverHandler = (numberOfRounds: number) => {
-    setGameIsOver(true);
-    setGuessRounds(numberOfRounds);
-  };
+    setGameIsOver(true)
+    setGuessRounds(numberOfRounds)
+  }
 
+  // determina a tela se o jogo comecou ou não
   let screen =
     userNumber > 0 && !gameIsOver ? (
       <GameScreen
@@ -37,8 +40,9 @@ export default function App() {
       />
     ) : (
       <StartGameScreen startGame={startGameHandler} />
-    );
+    )
 
+  // caso seja gameover, screen recebe a tela do mesmo
   screen =
     guessRounds > 0 && gameIsOver ? (
       <GameOverScreen
@@ -48,18 +52,18 @@ export default function App() {
       />
     ) : (
       screen
-    );
+    )
 
   return (
     <View style={styles.screen}>
-      <StatusBar style="auto" />
-      <Header title="Guess a Number Game" />
+      <StatusBar style='auto' />
+      <Header title='Guess a Number Game' />
       {screen}
     </View>
-  );
+  )
 }
 
-const whiteBg = '#fff';
+const whiteBg = '#fff'
 
 const styles = StyleSheet.create({
   screen: {
@@ -67,4 +71,4 @@ const styles = StyleSheet.create({
     backgroundColor: whiteBg,
     flexDirection: 'column'
   }
-});
+})

@@ -1,21 +1,21 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 
-import Card from '../components/Card';
-import AppButton from '../components/AppButton';
-import NumberContainer from '../components/NumberContainer';
+import Card from '../components/Card'
+import AppButton from '../components/AppButton'
+import NumberContainer from '../components/NumberContainer'
 
-import Colors from '../styles/colors';
-import FontSize from '../styles/fontSize';
+import Colors from '../styles/colors'
+import FontSize from '../styles/fontSize'
 
 interface Props {
-  restartGame: () => void;
-  numberOfRounds: number;
-  userNumber: number;
+  restartGame: () => void
+  numberOfRounds: number
+  userNumber: number
 }
 
-const GameOverScreen: React.FC<Props> = (props) => {
-  const { numberOfRounds, restartGame, userNumber } = props;
+const GameOverScreen: React.FC<Props> = props => {
+  const { numberOfRounds, restartGame, userNumber } = props
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>Game Over</Text>
@@ -29,15 +29,15 @@ const GameOverScreen: React.FC<Props> = (props) => {
         <AppButton
           onPress={() => restartGame()}
           style={styles.restarButton}
-          title="Restart Game"
+          title='Restart Game'
         />
       </View>
     </View>
-  );
-};
+  )
+}
 
-const resultBgColor = '#313638';
-const restartButtonBgColor = '#ffcbbe';
+const resultBgColor = '#313638'
+const restartButtonBgColor = '#ffcbbe'
 
 const styles = StyleSheet.create({
   screen: {
@@ -70,6 +70,6 @@ const styles = StyleSheet.create({
     fontSize: FontSize.general,
     marginTop: 20
   }
-});
+})
 
-export default GameOverScreen;
+export default GameOverScreen

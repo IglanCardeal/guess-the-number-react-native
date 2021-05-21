@@ -1,46 +1,47 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react'
+import { View, Text, StyleSheet, Alert } from 'react-native'
 
-import Card from '../components/Card';
-import NumberContainer from '../components/NumberContainer';
-import AppButton from '../components/AppButton';
-import ButtonsContainer from '../components/ButtonsContainer';
+import Card from '../components/Card'
+import NumberContainer from '../components/NumberContainer'
+import AppButton from '../components/AppButton'
+import ButtonsContainer from '../components/ButtonsContainer'
 
-import Colors from '../styles/colors';
-import FontSize from '../styles/fontSize';
+import Colors from '../styles/colors'
+import FontSize from '../styles/fontSize'
 
-import generateRandomBetween from '../utils/generateRandomBetween';
+import generateRandomBetween from '../utils/generateRandomBetween'
 
 interface Props {
-  userChoice: number;
-  restartGame: () => void;
-  gameOver: (numberOfRounds: number) => void;
+  userChoice: number
+  restartGame: () => void
+  gameOver: (numberOfRounds: number) => void
 }
 
 const GameScreen: React.FC<Props> = props => {
-  const { userChoice } = props;
+  const { userChoice } = props
 
   const [currentGuess, setCurrentGuess] = useState<number>(
     generateRandomBetween(1, 100, userChoice)
-  );
+  )
 
-  const currentLow = useRef(1);
-  const currentHigh = useRef(100);
-  const numberOfRounds = useRef(0);
+  const currentLow = useRef(1)
+  const currentHigh = useRef(100)
+  const numberOfRounds = useRef(0)
 
   useEffect(() => {
     if (currentGuess === props.userChoice) {
-      return props.gameOver(numberOfRounds.current);
+      // invoca a funcao do App.tsx que trata este evento
+      props.gameOver(numberOfRounds.current)
     }
-  }, [currentGuess]);
+  }, [currentGuess])
 
   const nextGuessHandler = (direction: string) => {
     const lowerIsLie = Boolean(
       direction === 'lower' && currentGuess < props.userChoice
-    );
+    )
     const greaterIsLie = Boolean(
       direction === 'greater' && currentGuess > props.userChoice
-    );
+    )
 
     if (lowerIsLie || greaterIsLie) {
       return Alert.alert("Don't lie!", 'You know that this is wrong...', [
@@ -48,27 +49,27 @@ const GameScreen: React.FC<Props> = props => {
           text: 'Sorry',
           style: 'cancel'
         }
-      ]);
+      ])
     }
 
     if (direction === 'lower') {
-      currentHigh.current = currentGuess;
+      currentHigh.current = currentGuess
     }
 
     if (direction === 'greater') {
-      currentLow.current = currentGuess;
+      currentLow.current = currentGuess
     }
 
     const nextNumber = generateRandomBetween(
       currentLow.current,
       currentHigh.current,
       currentGuess
-    );
+    )
 
-    setCurrentGuess(nextNumber);
+    setCurrentGuess(nextNumber)
 
-    numberOfRounds.current += 1;
-  };
+    numberOfRounds.current += 1
+  }
 
   return (
     <View style={styles.screen}>
@@ -83,12 +84,12 @@ const GameScreen: React.FC<Props> = props => {
           <AppButton
             onPress={() => nextGuessHandler('lower')}
             style={styles.lowerButton}
-            title="Lower"
+            title='Lower'
           />
           <AppButton
             onPress={() => nextGuessHandler('greater')}
             style={styles.greaterButton}
-            title="Greater"
+            title='Greater'
           />
         </ButtonsContainer>
       </Card>
@@ -96,14 +97,14 @@ const GameScreen: React.FC<Props> = props => {
         <AppButton
           onPress={() => props.restartGame()}
           style={styles.restarButton}
-          title="Restart Game"
+          title='Restart Game'
         />
       </View>
     </View>
-  );
-};
+  )
+}
 
-const bgColor = '#ffcbbe';
+const bgColor = '#ffcbbe'
 
 const styles = StyleSheet.create({
   screen: {
@@ -139,6 +140,6 @@ const styles = StyleSheet.create({
     fontSize: FontSize.general,
     marginTop: 20
   }
-});
+})
 
-export default GameScreen;
+export default GameScreen
