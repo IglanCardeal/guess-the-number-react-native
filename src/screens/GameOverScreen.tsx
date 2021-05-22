@@ -7,6 +7,7 @@ import NumberContainer from '../components/NumberContainer'
 
 import Colors from '../styles/colors'
 import FontSize from '../styles/fontSize'
+import FontFamily from '../styles/fontFamily'
 
 interface Props {
   restartGame: () => void
@@ -57,12 +58,13 @@ const styles = StyleSheet.create({
   title: {
     color: Colors.textColor.secondary_color,
     fontSize: FontSize.h2,
-    // fontFamily: 'open-sans'
+    fontFamily: FontFamily.title
   },
   text: {
     color: Colors.textColor.primary_color,
     fontSize: FontSize.general,
-    marginVertical: 10
+    marginVertical: 10,
+    fontFamily: FontFamily.text
   },
   restarButton: {
     backgroundColor: restartButtonBgColor,

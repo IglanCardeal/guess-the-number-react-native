@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import fontFamily from '../styles/fontFamily';
 
 interface Props {
   onPress: () => void;
@@ -25,7 +26,7 @@ const AppButton: React.FC<Props> = (props) => {
 
   return (
     <TouchableOpacity style={{ ...styles.button, ...style }} onPress={onPress}>
-      <Text style={{ color, fontSize }}>{title}</Text>
+      <Text style={{ ...styles.buttonText, color, fontSize}}>{title}</Text>
     </TouchableOpacity>
   );
 };
@@ -45,7 +46,10 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 2,
     shadowOpacity: 0.26,
-    borderRadius: 10
+    borderRadius: 10,
+  },
+  buttonText: {
+    fontFamily: fontFamily.text
   }
 });
 

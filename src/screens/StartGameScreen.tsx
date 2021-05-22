@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-color-literals */
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -7,63 +7,59 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert
-} from 'react-native';
+} from 'react-native'
 
-import AppButton from '../components/AppButton';
-import Card from '../components/Card';
-import TextInputField from '../components/TextInput';
-import NumberContainer from '../components/NumberContainer';
-import ButtonsContainer from '../components/ButtonsContainer';
+import AppButton from '../components/AppButton'
+import Card from '../components/Card'
+import TextInputField from '../components/TextInput'
+import NumberContainer from '../components/NumberContainer'
+import ButtonsContainer from '../components/ButtonsContainer'
 
-import Colors from '../styles/colors';
-import FontSize from '../styles/fontSize';
+import Colors from '../styles/colors'
+import FontSize from '../styles/fontSize'
+import FontFamily from '../styles/fontFamily'
 
 interface Props {
-  startGame: (value: number) => void;
+  startGame: (value: number) => void
 }
 
 const StartGameScreen: React.FC<Props> = props => {
-  const [inputNumber, setInputNumber] = useState<string>('');
-  const [confirmed, setConfirmed] = useState<boolean>(false);
-  const [enteredValue, setEnteredValue] = useState<number>(0);
+  const [inputNumber, setInputNumber] = useState<string>('')
+  const [confirmed, setConfirmed] = useState<boolean>(false)
+  const [enteredValue, setEnteredValue] = useState<number>(0)
 
   const inputFieldHandler = (text: string) => {
-    const onlyNumbers = text.replace(/[^0-9]/g, '');
+    const onlyNumbers = text.replace(/[^0-9]/g, '')
 
-    setInputNumber(onlyNumbers);
-  };
+    setInputNumber(onlyNumbers)
+  }
 
   const resetInputHandler = () => {
-    setInputNumber('');
-    setConfirmed(false);
-  };
+    setInputNumber('')
+    setConfirmed(false)
+  }
 
   const confirmInputHandler = () => {
-    const number = parseInt(inputNumber, 10);
-    const notValidNumber = Boolean(
-      Number.isNaN(number) || number <= 0 || number > 99
-    );
+    const notValidNumber = checkIfIsValidNumber(inputNumber)
 
     if (notValidNumber) {
       Alert.alert('Invalid number', 'Enter a number between 1 and 99.', [
         { text: 'OK', style: 'destructive', onPress: resetInputHandler }
-      ]);
-
-      return;
+      ])
+      return
     }
 
-    setEnteredValue(number);
-    setConfirmed(true);
-    setInputNumber('');
-
-    dismissKeyboard();
-  };
+    dismissKeyboard()
+    setEnteredValue(parseInt(inputNumber, 10))
+    setConfirmed(true)
+    setInputNumber('')
+  }
 
   const dismissKeyboard = () => {
-    Keyboard.dismiss();
-  };
+    Keyboard.dismiss()
+  }
 
-  let outputText;
+  let outputText
 
   if (confirmed) {
     outputText = (
@@ -71,12 +67,12 @@ const StartGameScreen: React.FC<Props> = props => {
         <Text style={styles.outputContainerTitle}>Chosen number:</Text>
         <NumberContainer numberValue={enteredValue} />
         <AppButton
-          title="Start Game"
+          title='Start Game'
           onPress={() => props.startGame(enteredValue)}
           style={styles.startGameButton}
         />
       </Card>
-    );
+    )
   }
 
   return (
@@ -89,7 +85,7 @@ const StartGameScreen: React.FC<Props> = props => {
           <TextInputField
             style={styles.inputField}
             autoCorrect={false}
-            keyboardType="numeric"
+            keyboardType='numeric'
             maxLength={2}
             value={inputNumber}
             onChangeText={inputFieldHandler}
@@ -98,12 +94,12 @@ const StartGameScreen: React.FC<Props> = props => {
             <AppButton
               style={styles.resetButton}
               onPress={resetInputHandler}
-              title="Reset"
+              title='Reset'
             />
             <AppButton
               style={styles.confirmButton}
               onPress={confirmInputHandler}
-              title="Confirm"
+              title='Confirm'
             />
           </ButtonsContainer>
         </Card>
@@ -111,12 +107,12 @@ const StartGameScreen: React.FC<Props> = props => {
         {outputText}
       </View>
     </TouchableWithoutFeedback>
-  );
-};
+  )
+}
 
-const lightgreyColor = 'lightgrey';
+const lightgreyColor = 'lightgrey'
 
-const outputContainerBgColor = '#313638';
+const outputContainerBgColor = '#313638'
 
 const styles = StyleSheet.create({
   screen: {
@@ -127,7 +123,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FontSize.h2,
     marginVertical: 20,
-    fontFamily: 'open-sans-bold'
+    fontFamily: FontFamily.title
   },
   inputContainer: {
     width: 400,
@@ -135,13 +131,15 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   inputContainerText: {
-    fontSize: FontSize.general
+    fontSize: FontSize.general,
+    fontFamily: FontFamily.text
   },
   inputField: {
     borderColor: lightgreyColor,
     borderBottomWidth: 1,
     fontSize: FontSize.general,
-    width: '30%'
+    width: '30%',
+    fontFamily: FontFamily.text
   },
   // buttonContainer: {
   //   flexDirection: 'row',
@@ -171,7 +169,8 @@ const styles = StyleSheet.create({
   },
   outputContainerTitle: {
     fontSize: FontSize.general,
-    color: Colors.textColor.primary_color
+    color: Colors.textColor.primary_color,
+    fontFamily: FontFamily.title
   },
   startGameButton: {
     backgroundColor: Colors.buttons.primary_color,
@@ -181,6 +180,15 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginTop: 20
   }
-});
+})
 
-export default StartGameScreen;
+export default StartGameScreen
+
+function checkIfIsValidNumber (inputNumber: string): boolean {
+  const number = parseInt(inputNumber, 10)
+  const notValidNumber = Boolean(
+    Number.isNaN(number) || number <= 0 || number > 99
+  )
+
+  return notValidNumber
+}

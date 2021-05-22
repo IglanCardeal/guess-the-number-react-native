@@ -94,6 +94,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: whiteBg,
-    flexDirection: 'column'
+    flexDirection: 'column',
   }
 })

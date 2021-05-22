@@ -8,6 +8,7 @@ import ButtonsContainer from '../components/ButtonsContainer'
 
 import Colors from '../styles/colors'
 import FontSize from '../styles/fontSize'
+import FontFamily from '../styles/fontFamily'
 
 import generateRandomBetween from '../utils/generateRandomBetween'
 
@@ -41,20 +42,9 @@ const GameScreen: React.FC<Props> = props => {
       currentGuess,
       userChoice
     })
-    // const lowerIsLie = Boolean(
-    //   direction === 'lower' && currentGuess < props.userChoice
-    // )
-    // const greaterIsLie = Boolean(
-    //   direction === 'greater' && currentGuess > props.userChoice
-    // )
 
     if (lowerIsLie || greaterIsLie) {
-      return Alert.alert("Don't lie!", 'You know that this is wrong...', [
-        {
-          text: 'Sorry',
-          style: 'cancel'
-        }
-      ])
+      return showAlertToUseInCaseOfLie()
     }
 
     if (direction === 'lower') {
@@ -120,11 +110,13 @@ const styles = StyleSheet.create({
   result: {
     width: 400,
     maxWidth: '90%',
-    alignItems: 'center'
+    alignItems: 'center',
+    fontFamily: FontFamily.text
   },
   title: {
     color: Colors.textColor.secondary_color,
-    fontSize: FontSize.general
+    fontSize: FontSize.general,
+    fontFamily: FontFamily.title
   },
   lowerButton: {
     backgroundColor: Colors.buttons.secondary_color,
@@ -149,19 +141,31 @@ const styles = StyleSheet.create({
 
 export default GameScreen
 
-function checkIfUserIsLying ({
-  direction,
-  currentGuess,
-  userChoice
-}: {
+type CheckIfUserIsLyingResponse = { lowerIsLie: boolean; greaterIsLie: boolean }
+type CheckIfUserIsLyingParams = {
   direction: string
   currentGuess: number
   userChoice: number
-}) {
+}
+
+function checkIfUserIsLying (
+  params: CheckIfUserIsLyingParams
+): CheckIfUserIsLyingResponse {
+  const { direction, currentGuess, userChoice } = params
+
   const lowerIsLie = Boolean(direction === 'lower' && currentGuess < userChoice)
   const greaterIsLie = Boolean(
     direction === 'greater' && currentGuess > userChoice
   )
 
   return { lowerIsLie, greaterIsLie }
+}
+
+function showAlertToUseInCaseOfLie (): void {
+  Alert.alert("Don't lie!", 'You know that this is wrong...', [
+    {
+      text: 'Sorry',
+      style: 'cancel'
+    }
+  ])
 }
