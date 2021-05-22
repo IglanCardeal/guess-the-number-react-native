@@ -36,12 +36,17 @@ const GameScreen: React.FC<Props> = props => {
   }, [currentGuess])
 
   const nextGuessHandler = (direction: string) => {
-    const lowerIsLie = Boolean(
-      direction === 'lower' && currentGuess < props.userChoice
-    )
-    const greaterIsLie = Boolean(
-      direction === 'greater' && currentGuess > props.userChoice
-    )
+    const { lowerIsLie, greaterIsLie } = checkIfUserIsLying({
+      direction,
+      currentGuess,
+      userChoice
+    })
+    // const lowerIsLie = Boolean(
+    //   direction === 'lower' && currentGuess < props.userChoice
+    // )
+    // const greaterIsLie = Boolean(
+    //   direction === 'greater' && currentGuess > props.userChoice
+    // )
 
     if (lowerIsLie || greaterIsLie) {
       return Alert.alert("Don't lie!", 'You know that this is wrong...', [
@@ -143,3 +148,20 @@ const styles = StyleSheet.create({
 })
 
 export default GameScreen
+
+function checkIfUserIsLying ({
+  direction,
+  currentGuess,
+  userChoice
+}: {
+  direction: string
+  currentGuess: number
+  userChoice: number
+}) {
+  const lowerIsLie = Boolean(direction === 'lower' && currentGuess < userChoice)
+  const greaterIsLie = Boolean(
+    direction === 'greater' && currentGuess > userChoice
+  )
+
+  return { lowerIsLie, greaterIsLie }
+}

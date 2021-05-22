@@ -1,6 +1,10 @@
+/* eslint-disable no-console */
+/* eslint-disable global-require */
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
+
 import { StatusBar } from 'expo-status-bar'
+import { useFonts } from 'expo-font'
 
 import Header from './src/components/Header'
 import StartGameScreen from './src/screens/StartGameScreen'
@@ -8,9 +12,30 @@ import GameScreen from './src/screens/GameScreen'
 import GameOverScreen from './src/screens/GameOverScreen'
 
 export default function App () {
-  const [userNumber, setUserNumber] = useState<number>(0)
-  const [gameIsOver, setGameIsOver] = useState<boolean>(false)
+  const [fontLoaded, error] = useFonts({
+    'open-sans': require('./src/assets/fonts/OpenSans-Regular.ttf'),
+    'open-sans-bold': require('./src/assets/fonts/OpenSans-Bold.ttf')
+  })
+  const [userNumber, setUserNumber] = useState(0)
+  const [gameIsOver, setGameIsOver] = useState(false)
   const [guessRounds, setGuessRounds] = useState(0)
+
+  if (error) {
+    console.log('[FONT ERROR]: ', error)
+    return (
+      <View>
+        <Text>Font loading error...</Text>
+      </View>
+    )
+  }
+
+  if (!fontLoaded) {
+    return (
+      <View>
+        <Text>App loading</Text>
+      </View>
+    )
+  }
 
   const startGameHandler = (selectedNumber: number) => {
     setUserNumber(selectedNumber)

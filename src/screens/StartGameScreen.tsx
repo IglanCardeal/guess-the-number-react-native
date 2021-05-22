@@ -126,7 +126,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: FontSize.h2,
-    marginVertical: 20
+    marginVertical: 20,
+    fontFamily: 'open-sans-bold'
   },
   inputContainer: {
     width: 400,

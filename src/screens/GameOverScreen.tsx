@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
   },
   title: {
     color: Colors.textColor.secondary_color,
-    fontSize: FontSize.h2
+    fontSize: FontSize.h2,
+    // fontFamily: 'open-sans'
   },
   text: {
     color: Colors.textColor.primary_color,
