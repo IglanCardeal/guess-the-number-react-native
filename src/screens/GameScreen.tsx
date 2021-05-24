@@ -66,15 +66,21 @@ const GameScreen: React.FC<Props> = props => {
     numberOfRounds.current += 1
   }
 
+  const restartGameHandler = () => {
+    props.restartGame()
+  }
+
   return (
     <View style={styles.screen}>
       <Card style={styles.result}>
         <Text style={styles.title}>Opponent&apos;s Guess</Text>
+
         <NumberContainer
           numberValue={currentGuess}
           textColor={`${Colors.textColor.secondary_color}`}
           borderColor={`${Colors.textColor.secondary_color}`}
         />
+
         <ButtonsContainer>
           <AppButton
             onPress={() => nextGuessHandler('lower')}
@@ -88,9 +94,10 @@ const GameScreen: React.FC<Props> = props => {
           />
         </ButtonsContainer>
       </Card>
+
       <View>
         <AppButton
-          onPress={() => props.restartGame()}
+          onPress={restartGameHandler}
           style={styles.restarButton}
           title='Restart Game'
         />

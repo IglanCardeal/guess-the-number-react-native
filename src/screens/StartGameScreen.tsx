@@ -24,6 +24,8 @@ interface Props {
 }
 
 const StartGameScreen: React.FC<Props> = props => {
+  const { startGame } = props
+
   const [inputNumber, setInputNumber] = useState<string>('')
   const [confirmed, setConfirmed] = useState<boolean>(false)
   const [enteredValue, setEnteredValue] = useState<number>(0)
@@ -61,6 +63,10 @@ const StartGameScreen: React.FC<Props> = props => {
 
   let outputText
 
+  const startGameHandler = () => {
+    startGame(enteredValue)
+  }
+
   if (confirmed) {
     outputText = (
       <Card style={styles.outputContainer}>
@@ -68,7 +74,7 @@ const StartGameScreen: React.FC<Props> = props => {
         <NumberContainer numberValue={enteredValue} />
         <AppButton
           title='Start Game'
-          onPress={() => props.startGame(enteredValue)}
+          onPress={startGameHandler}
           style={styles.startGameButton}
         />
       </Card>
@@ -82,6 +88,7 @@ const StartGameScreen: React.FC<Props> = props => {
 
         <Card style={styles.inputContainer}>
           <Text style={styles.inputContainerText}>Select a number: </Text>
+
           <TextInputField
             style={styles.inputField}
             autoCorrect={false}
@@ -90,6 +97,7 @@ const StartGameScreen: React.FC<Props> = props => {
             value={inputNumber}
             onChangeText={inputFieldHandler}
           />
+
           <ButtonsContainer>
             <AppButton
               style={styles.resetButton}

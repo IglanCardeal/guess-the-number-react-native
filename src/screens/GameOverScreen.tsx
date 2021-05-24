@@ -17,6 +17,11 @@ interface Props {
 
 const GameOverScreen: React.FC<Props> = props => {
   const { numberOfRounds, restartGame, userNumber } = props
+
+  const restartGameHandler = () => {
+    restartGame()
+  }
+
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>Game Over</Text>
@@ -28,7 +33,7 @@ const GameOverScreen: React.FC<Props> = props => {
       </Card>
       <View>
         <AppButton
-          onPress={() => restartGame()}
+          onPress={restartGameHandler}
           style={styles.restarButton}
           title='Restart Game'
         />
